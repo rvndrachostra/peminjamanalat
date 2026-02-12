@@ -16,7 +16,7 @@
             <label for="name" class="block text-sm font-medium text-gray-700">Nama Kategori</label>
             <input type="text" name="name" id="name" value="{{ old('name') }}" required
                 class="mt-1 w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 @error('name') border-red-500 @enderror"
-                placeholder="Contoh: Proyektor, Sound System, dll">
+                placeholder="Contoh: Bola Basket, Futsal, dll">
             @error('name')
                 <p class="mt-1 text-sm text-red-500">{{ $message }}</p>
             @enderror

@@ -132,7 +132,7 @@
                                 </div>
                                 <div>
                                     <div class="font-bold text-gray-900">Tersedia</div>
-                                    <div class="text-sm text-gray-600">Bola Basket Pro</div>
+                                    <div class="text-sm text-gray-600">Alat Olahraga</div>
                                 </div>
                             </div>
                         </div>
@@ -145,7 +145,7 @@
                                     </svg>
                                 </div>
                                 <div>
-                                    <div class="font-bold text-gray-900">24/7</div>
+                                    <div class="font-bold text-gray-900">9 jam</div>
                                     <div class="text-sm text-gray-600">Support</div>
                                 </div>
                             </div>
@@ -464,7 +464,7 @@
                     </span>
                     <h2 class="text-4xl md:text-5xl font-black mb-6">Siap Memulai?</h2>
                     <p class="text-xl text-emerald-50 mb-10 max-w-2xl mx-auto leading-relaxed">
-                        Bergabunglah dengan ribuan atlet dan pecinta olahraga yang sudah mempercayai SportHub untuk kebutuhan peminjaman alat olahraga mereka
+                        Bergabunglah dengan siswa berprestasi menjadi atlet dan pecinta olahraga untuk kebutuhan peminjaman alat olahraga mereka
                     </p>
                     <div class="flex flex-col sm:flex-row gap-4 justify-center">
                         <a href="{{ route('login') }}" class="bg-white text-emerald-600 px-12 py-4 rounded-xl hover:bg-emerald-50 transition-all font-bold text-lg shadow-xl">
@@ -474,7 +474,6 @@
                             Lihat Dashboard
                         </a>
                     </div>
-                    <p class="text-emerald-100 text-sm mt-8">✓ Gratis untuk 30 hari pertama · ✓ Tanpa kartu kredit · ✓ Batal kapan saja</p>
                 </div>
             </div>
         </div>
@@ -495,7 +494,7 @@
                         <span class="text-xl font-bold">Sport<span class="text-emerald-400">Hub</span></span>
                     </div>
                     <p class="text-gray-400 mb-6 leading-relaxed max-w-md">
-                        Platform peminjaman alat olahraga terpercaya untuk kebutuhan latihan, kompetisi, dan event. Mudah, aman, dan profesional.
+                        Platform peminjaman alat olahraga terpercaya untuk kebutuhan siswa latihan, kompetisi, dan event. Mudah, aman, dan profesional.
                     </p>
                     <div class="flex space-x-3">
                         <a href="#" class="bg-gray-800 p-3 rounded-xl hover:bg-gray-700 transition-colors">
@@ -554,20 +553,20 @@
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
                             </svg>
-                            Jakarta, Indonesia
+                            SMKN 1 Ciomas
                         </li>
                         <li class="flex items-start">
                             <svg class="w-5 h-5 mr-2 mt-0.5 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                             </svg>
-                            Senin - Jumat: 08:00 - 20:00
+                            Senin - Jumat: 07:00 - 16:00
                         </li>
                     </ul>
                 </div>
             </div>
 
             <div class="border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center text-center md:text-left">
-                <p class="text-gray-400 mb-4 md:mb-0">© 2026 SportHub. Semua hak dilindungi undang-undang.</p>
+                <p class="text-gray-400 mb-4 md:mb-0">© 2026 SportHub. Semua hak dilindungi undang-undang perolahragaan.</p>
                 <p class="text-gray-500 text-sm">Dibuat dengan <span class="text-red-500">❤️</span> untuk kemudahan peminjaman alat olahraga</p>
             </div>
         </div>
