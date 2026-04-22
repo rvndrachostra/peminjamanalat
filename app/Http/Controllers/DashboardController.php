@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Borrowing;
 use App\Models\Equipment;
@@ -43,6 +42,8 @@ class DashboardController extends Controller
         $data = [
             'pendingBorrowings' => Borrowing::where('status', 'pending')->count(),
             'unreturned' => Borrowing::where('status', 'approved')->where('end_date', '<', today())->count(),
+            'unpaidFines' => Borrowing::where('status', 'returned')->where('fine_status', 'belum_lunas')->count(),
+            'unpaidFineAmount' => Borrowing::where('status', 'returned')->where('fine_status', 'belum_lunas')->sum('total_fine'),
         ];
 
         return view('dashboard.petugas', $data);

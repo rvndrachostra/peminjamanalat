@@ -8,7 +8,7 @@
         <p class="text-gray-600 mt-2">Selamat datang, {{ Auth::user()->name }}!</p>
     </div>
 
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
         <div class="bg-white rounded-lg shadow p-6">
             <div class="flex items-center">
                 <div class="flex-shrink-0 bg-orange-100 rounded-lg p-3">
@@ -41,6 +41,19 @@
                 <div class="ml-4">
                     <p class="text-gray-500 text-sm">Tanggal Hari Ini</p>
                     <p class="text-2xl font-bold text-gray-900">{{ now()->format('d M Y') }}</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="bg-white rounded-lg shadow p-6">
+            <div class="flex items-center">
+                <div class="flex-shrink-0 bg-emerald-100 rounded-lg p-3">
+                    <span class="text-2xl">💰</span>
+                </div>
+                <div class="ml-4">
+                    <p class="text-gray-500 text-sm">Denda Belum Lunas</p>
+                    <p class="text-3xl font-bold text-emerald-600">{{ $unpaidFines }}</p>
+                    <p class="text-xs text-gray-500 mt-1">Rp {{ number_format($unpaidFineAmount, 0, ',', '.') }}</p>
                 </div>
             </div>
         </div>

@@ -123,4 +123,6 @@ return [
         'store' => env('APP_MAINTENANCE_STORE', 'database'),
     ],
 
+    'borrowing_daily_fine' => (int) env('BORROWING_DAILY_FINE', 5000),
+
 ];

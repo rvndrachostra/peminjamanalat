@@ -3,6 +3,47 @@
 @section('title', 'Kelola User - Sport Hub')
 
 @section('content')
+<style>
+    .tooltip-container {
+        position: relative;
+        display: inline-block;
+    }
+
+    .tooltip {
+        visibility: hidden;
+        background-color: #1f2937;
+        color: #fff;
+        text-align: left;
+        padding: 8px 12px;
+        border-radius: 6px;
+        position: fixed;
+        z-index: 9999;
+        white-space: normal;
+        font-size: 0.875rem;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        pointer-events: none;
+        opacity: 0;
+        transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+        max-width: 300px;
+    }
+
+    .tooltip::after {
+        content: "";
+        position: absolute;
+        bottom: -5px;
+        left: 50%;
+        margin-left: -5px;
+        border-width: 5px;
+        border-style: solid;
+        border-color: #1f2937 transparent transparent transparent;
+    }
+
+    .tooltip-container:hover .tooltip {
+        visibility: visible;
+        opacity: 1;
+    }
+</style>
+
 <div class="mb-6 flex items-center justify-between">
     <div>
         <h1 class="text-3xl font-bold text-gray-900">Kelola User</h1>
@@ -18,9 +59,11 @@
         <table class="min-w-full divide-y divide-gray-200">
             <thead class="bg-gray-50">
                 <tr>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Foto</th>
                     <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Nama</th>
                     <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Email</th>
                     <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Telepon</th>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Alamat</th>
                     <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Role</th>
                     <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Tindakan</th>
                 </tr>
@@ -29,6 +72,16 @@
                 @forelse ($users as $user)
                     <tr class="hover:bg-gray-50 transition">
                         <td class="px-6 py-4 whitespace-nowrap">
+                            @if ($user->profile_photo)
+                                <img src="{{ asset('storage/' . $user->profile_photo) }}" alt="{{ $user->name }}"
+                                    class="h-10 w-10 rounded-full object-cover">
+                            @else
+                                <div class="h-10 w-10 rounded-full bg-gray-300 flex items-center justify-center">
+                                    <span class="text-xs font-medium text-gray-700">{{ substr($user->name, 0, 1) }}</span>
+                                </div>
+                            @endif
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap">
                             <p class="text-sm font-medium text-gray-900">{{ $user->name }}</p>
                         </td>
                         <td class="px-6 py-4 whitespace-nowrap">
@@ -36,6 +89,22 @@
                         </td>
                         <td class="px-6 py-4 whitespace-nowrap">
                             <p class="text-sm text-gray-500">{{ $user->phone ?? '-' }}</p>
+                        </td>
+                        <td class="px-6 py-4">
+                            @if ($user->address)
+                                <div class="tooltip-container">
+                                    <p class="text-sm text-gray-500">
+                                        @if (strlen($user->address) > 30)
+                                            {{ substr($user->address, 0, 30) }}...
+                                        @else
+                                            {{ $user->address }}
+                                        @endif
+                                    </p>
+                                    <div class="tooltip">{{ $user->address }}</div>
+                                </div>
+                            @else
+                                <p class="text-sm text-gray-400">-</p>
+                            @endif
                         </td>
                         <td class="px-6 py-4 whitespace-nowrap">
                             <div class="flex gap-2 flex-wrap">
@@ -62,7 +131,7 @@
                     </tr>
                 @empty
                     <tr>
-                        <td colspan="5" class="px-6 py-4 text-center text-gray-500">
+                        <td colspan="7" class="px-6 py-4 text-center text-gray-500">
                             Belum ada user. <a href="{{ route('admin.users.create') }}" class="text-blue-600 hover:underline">Buat user baru</a>
                         </td>
                     </tr>
@@ -75,4 +144,23 @@
         {{ $users->links() }}
     </div>
 </div>
+
+<script>
+    // Position tooltips dynamically
+    document.querySelectorAll('.tooltip-container').forEach(container => {
+        const tooltip = container.querySelector('.tooltip');
+
+        container.addEventListener('mouseenter', function() {
+            const rect = container.getBoundingClientRect();
+            const tooltipRect = tooltip.getBoundingClientRect();
+
+            // Position tooltip above the text with some offset
+            const top = rect.top - tooltipRect.height - 10;
+            const left = rect.left + (rect.width / 2) - (tooltipRect.width / 2);
+
+            tooltip.style.top = (top + window.scrollY) + 'px';
+            tooltip.style.left = left + 'px';
+        });
+    });
+</script>
 @endsection

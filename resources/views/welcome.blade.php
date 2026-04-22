@@ -96,7 +96,7 @@
                             Login Sekarang
                         </a>
                         <a href="#fitur" class="bg-white text-gray-900 px-10 py-4 rounded-xl hover:shadow-lg transition-all font-bold text-lg border-2 border-gray-200">
-                            Pelajari Lebih Lanjut
+                            Pelajari Lebih lanjut
                         </a>
                     </div>
 
@@ -125,7 +125,13 @@
                         <!-- Floating Cards -->
                         <div class="absolute -top-6 -left-6 bg-white rounded-2xl p-5 shadow-2xl border border-gray-100">
                             <div class="flex items-center space-x-3">
-                                <div class="bg-emerald-100 p-3 rounded-xl">
+                                <div class="bg-emerald-100 p-3 rounkaljg
+                                   majd
+                                   ;la
+                                   
+                                   ladld
+                                   la
+                                   dlded-xl">
                                     <svg class="w-6 h-6 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
                                     </svg>
@@ -159,7 +165,8 @@
     <!-- Role Cards Section -->
     <div class="py-24 px-4 sm:px-6 lg:px-8 bg-gray-50">
         <div class="max-w-7xl mx-auto">
-            <div class="text-center mb-20">
+            <div class="text-center msd,d;
+            b-20">
                 <span class="text-emerald-600 font-semibold text-sm uppercase tracking-wider">Untuk Siapa?</span>
                 <h2 class="text-4xl md:text-5xl font-black text-gray-900 mb-4 mt-3">Tiga Peran Utama</h2>
                 <p class="text-xl text-gray-600 max-w-2xl mx-auto">Setiap peran memiliki akses dan fitur khusus yang disesuaikan</p>
@@ -465,7 +472,6 @@
                     <h2 class="text-4xl md:text-5xl font-black mb-6">Siap Memulai?</h2>
                     <p class="text-xl text-emerald-50 mb-10 max-w-2xl mx-auto leading-relaxed">
                         Bergabunglah dengan siswa berprestasi menjadi atlet dan pecinta olahraga untuk kebutuhan peminjaman alat olahraga mereka
-                    </p>
                     <div class="flex flex-col sm:flex-row gap-4 justify-center">
                         <a href="{{ route('login') }}" class="bg-white text-emerald-600 px-12 py-4 rounded-xl hover:bg-emerald-50 transition-all font-bold text-lg shadow-xl">
                             Login Sekarang
@@ -494,7 +500,7 @@
                         <span class="text-xl font-bold">Sport<span class="text-emerald-400">Hub</span></span>
                     </div>
                     <p class="text-gray-400 mb-6 leading-relaxed max-w-md">
-                        Platform peminjaman alat olahraga terpercaya untuk kebutuhan siswa latihan, kompetisi, dan event. Mudah, aman, dan profesional.
+                      Platform peminjaman alat olahraga terpercaya untuk kebutuhan siswa latihan, kompetisi, dan event. Mudah, aman, dan profesional.
                     </p>
                     <div class="flex space-x-3">
                         <a href="#" class="bg-gray-800 p-3 rounded-xl hover:bg-gray-700 transition-colors">
@@ -540,13 +546,13 @@
                             <svg class="w-5 h-5 mr-2 mt-0.5 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
                             </svg>
-                            info@sporthub.id
+                            SportHub@smk.belajar.id
                         </li>
                         <li class="flex items-start">
                             <svg class="w-5 h-5 mr-2 mt-0.5 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path>
                             </svg>
-                            +62 812 3456 7890
+                            0896-1829-7321
                         </li>
                         <li class="flex items-start">
                             <svg class="w-5 h-5 mr-2 mt-0.5 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -566,8 +572,8 @@
             </div>
 
             <div class="border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center text-center md:text-left">
-                <p class="text-gray-400 mb-4 md:mb-0">© 2026 SportHub. Semua hak dilindungi undang-undang perolahragaan.</p>
-                <p class="text-gray-500 text-sm">Dibuat dengan <span class="text-red-500">❤️</span> untuk kemudahan peminjaman alat olahraga</p>
+                <p class="text-gray-400 mb-4 md:mb-0">© 2026 SportHub. Semua hak dilindungi undang-undang Perolahragaan.</p>
+                <p class="text-gray-500 text-sm">Dibuat dengan <span class="text-red-500">❤️</span> untuk kemudahan peminjaman Alat Olahraga</p>
             </div>
         </div>
     </footer>

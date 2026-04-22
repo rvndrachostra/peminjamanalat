@@ -49,11 +49,24 @@ class BorrowingController extends Controller
 
     public function myBorrowings()
     {
-        $borrowings = Auth::user()->borrowings()
+        $borrowingQuery = Auth::user()->borrowings();
+
+        $borrowings = (clone $borrowingQuery)
             ->with('equipment')
             ->orderByDesc('created_at')
             ->paginate(10);
-        return view('peminjam.borrowings.index', compact('borrowings'));
+
+        $unpaidFineCount = (clone $borrowingQuery)
+            ->where('status', 'returned')
+            ->where('fine_status', 'belum_lunas')
+            ->count();
+
+        $unpaidFineAmount = (clone $borrowingQuery)
+            ->where('status', 'returned')
+            ->where('fine_status', 'belum_lunas')
+            ->sum('total_fine');
+
+        return view('peminjam.borrowings.index', compact('borrowings', 'unpaidFineCount', 'unpaidFineAmount'));
     }
 
     public function return(Request $request, $id)

@@ -9,7 +9,7 @@
 </div>
 
 @if ($borrowings->count() > 0)
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
         <div class="bg-white rounded-lg shadow p-4">
             <p class="text-gray-600 text-sm">Total Peminjaman</p>
             <p class="text-3xl font-bold text-gray-900">{{ $borrowings->total() }}</p>
@@ -21,6 +21,12 @@
         <div class="bg-white rounded-lg shadow p-4">
             <p class="text-gray-600 text-sm">Sedang Dipinjam</p>
             <p class="text-3xl font-bold text-blue-600">{{ $borrowings->where('status', 'approved')->count() }}</p>
+        </div>
+
+        <div class="bg-white rounded-lg shadow p-4">
+            <p class="text-gray-600 text-sm">Denda Belum Lunas</p>
+            <p class="text-3xl font-bold text-red-600">{{ $unpaidFineCount }}</p>
+            <p class="text-xs text-gray-500 mt-1">Rp {{ number_format($unpaidFineAmount, 0, ',', '.') }}</p>
         </div>
     </div>
 
@@ -75,21 +81,63 @@
 
                         @if ($borrowing->note)
                             <div class="mb-4 p-3 bg-gray-50 rounded">
-                                <p class="text-xs text-gray-500 uppercase">Keterangan</p>
+                                <p class="text-xs text-gray-500 uppercase">Catatan</p>
                                 <p class="text-sm text-gray-700">{{ $borrowing->note }}</p>
                             </div>
                         @endif
 
-                        <div class="flex gap-2">
-                            @if ($borrowing->status === 'approved')
-                                <form method="POST" action="{{ route('peminjam.borrowing.return', $borrowing->id) }}" class="inline" onsubmit="return confirm('Yakin alat sudah dikembalikan?');">
-                                    @csrf
-                                    <button type="submit" class="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition text-sm font-medium">
-                                        Kembalikan Alat
-                                    </button>
-                                </form>
-                            @endif
-                        </div>
+                        @if ($borrowing->status === 'returned')
+                            <div class="rounded-lg border border-gray-200 p-4 bg-gray-50">
+                                <div class="flex items-center justify-between gap-3 mb-3">
+                                    <p class="text-sm font-semibold text-gray-900">Informasi Pengembalian & Denda</p>
+                                    @if ($borrowing->total_fine > 0)
+                                        <span class="inline-flex px-3 py-1 text-xs font-semibold rounded-full {{ $borrowing->fine_status === 'lunas' ? 'bg-emerald-100 text-emerald-700' : 'bg-red-100 text-red-700' }}">
+                                            {{ $borrowing->fine_status === 'lunas' ? 'Lunas' : 'Belum Lunas' }}
+                                        </span>
+                                    @else
+                                        <span class="inline-flex px-3 py-1 text-xs font-semibold rounded-full bg-emerald-100 text-emerald-700">
+                                            Tanpa Denda
+                                        </span>
+                                    @endif
+                                </div>
+
+                                <div class="grid grid-cols-2 md:grid-cols-4 gap-3 text-sm">
+                                    <div>
+                                        <p class="text-xs text-gray-500 uppercase">Tanggal Kembali</p>
+                                        <p class="font-semibold text-gray-900">{{ optional($borrowing->actual_return_date)->format('d/m/Y') ?? optional($borrowing->returned_at)->format('d/m/Y') ?? '-' }}</p>
+                                    </div>
+                                    <div>
+                                        <p class="text-xs text-gray-500 uppercase">Kondisi</p>
+                                        <p class="font-semibold text-gray-900">{{ $borrowing->return_condition ? str_replace('_', ' ', ucfirst($borrowing->return_condition)) : '-' }}</p>
+                                    </div>
+                                    <div>
+                                        <p class="text-xs text-gray-500 uppercase">Telat</p>
+                                        <p class="font-semibold text-gray-900">{{ $borrowing->late_days }} hari</p>
+                                    </div>
+                                    <div>
+                                        <p class="text-xs text-gray-500 uppercase">Total Denda</p>
+                                        <p class="font-semibold {{ $borrowing->total_fine > 0 ? 'text-red-600' : 'text-emerald-600' }}">Rp {{ number_format($borrowing->total_fine, 0, ',', '.') }}</p>
+                                    </div>
+                                </div>
+
+                                @if ($borrowing->total_fine > 0)
+                                    <div class="mt-3 text-sm text-gray-700">
+                                        <p>Denda keterlambatan: <span class="font-semibold">Rp {{ number_format($borrowing->late_fine, 0, ',', '.') }}</span></p>
+                                        <p>Denda kerusakan: <span class="font-semibold">Rp {{ number_format($borrowing->damage_fine, 0, ',', '.') }}</span></p>
+                                        @if ($borrowing->fine_status === 'lunas' && $borrowing->fine_paid_at)
+                                            <p class="text-emerald-700 mt-1">Dibayar pada {{ $borrowing->fine_paid_at->format('d/m/Y H:i') }}</p>
+                                        @endif
+                                    </div>
+                                @endif
+
+                                @if ($borrowing->return_note)
+                                    <div class="mt-3 rounded bg-white p-3 text-sm text-gray-700 border border-gray-200">
+                                        <p class="text-xs text-gray-500 uppercase mb-1">Catatan Petugas</p>
+                                        <p>{{ $borrowing->return_note }}</p>
+                                    </div>
+                                @endif
+                            </div>
+                        @endif
                     </div>
                 </div>
             </div>

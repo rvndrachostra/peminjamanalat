@@ -8,6 +8,7 @@ use App\Models\Role;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class UserController extends Controller
 {
@@ -30,15 +31,24 @@ class UserController extends Controller
             'email' => 'required|email|unique:users',
             'password' => 'required|min:8|confirmed',
             'phone' => 'nullable|string|max:20',
+            'address' => 'nullable|string|max:500',
+            'profile_photo' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             'roles' => 'required|array',
         ]);
 
-        $user = User::create([
+        $data = [
             'name' => $validated['name'],
             'email' => $validated['email'],
             'password' => Hash::make($validated['password']),
             'phone' => $validated['phone'] ?? null,
-        ]);
+            'address' => $validated['address'] ?? null,
+        ];
+
+        if ($request->hasFile('profile_photo')) {
+            $data['profile_photo'] = $request->file('profile_photo')->store('profile-photos', 'public');
+        }
+
+        $user = User::create($data);
 
         $user->roles()->attach($validated['roles']);
 
@@ -59,15 +69,38 @@ class UserController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|email|unique:users,email,' . $user->id,
             'phone' => 'nullable|string|max:20',
+            'address' => 'nullable|string|max:500',
+            'profile_photo' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             'password' => 'nullable|min:8|confirmed',
             'roles' => 'required|array',
+            'delete_profile_photo' => 'nullable|boolean',
         ]);
 
-        $user->update([
+        $data = [
             'name' => $validated['name'],
             'email' => $validated['email'],
             'phone' => $validated['phone'] ?? null,
-        ]);
+            'address' => $validated['address'] ?? $user->address,
+        ];
+
+        // Handle delete existing photo
+        if ($request->input('delete_profile_photo')) {
+            if ($user->profile_photo) {
+                Storage::disk('public')->delete($user->profile_photo);
+            }
+            $data['profile_photo'] = null;
+        }
+
+        // Handle upload new photo
+        if ($request->hasFile('profile_photo')) {
+            // Delete old photo if exists
+            if ($user->profile_photo) {
+                Storage::disk('public')->delete($user->profile_photo);
+            }
+            $data['profile_photo'] = $request->file('profile_photo')->store('profile-photos', 'public');
+        }
+
+        $user->update($data);
 
         if ($validated['password'] ?? false) {
             $user->update(['password' => Hash::make($validated['password'])]);
@@ -84,6 +117,11 @@ class UserController extends Controller
     {
         if ($user->id === Auth::id()) {
             return back()->withErrors('Tidak dapat menghapus user yang sedang login');
+        }
+
+        // Delete profile photo if exists
+        if ($user->profile_photo) {
+            Storage::disk('public')->delete($user->profile_photo);
         }
 
         $this->logActivity(Auth::user(), "Menghapus user: {$user->name}");

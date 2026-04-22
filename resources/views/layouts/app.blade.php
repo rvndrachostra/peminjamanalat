@@ -247,9 +247,15 @@
             <div class="mt-auto pt-6 border-t border-gray-700">
                 <div class="px-3 py-3 rounded-xl bg-gray-800 bg-opacity-50">
                     <div class="flex items-center space-x-3">
-                        <div class="w-10 h-10 rounded-full bg-gradient-to-br from-green-500 to-pink-500 flex items-center justify-center text-white font-bold">
-                            {{ substr(Auth::user()->name, 0, 1) }}
-                        </div>
+                        @if (Auth::user()->profile_photo)
+                            <img src="{{ asset('storage/' . Auth::user()->profile_photo) }}"
+                                alt="{{ Auth::user()->name }}"
+                                class="w-10 h-10 rounded-full object-cover border border-green-500">
+                        @else
+                            <div class="w-10 h-10 rounded-full bg-gradient-to-br from-green-500 to-pink-500 flex items-center justify-center text-white font-bold">
+                                {{ substr(Auth::user()->name, 0, 1) }}
+                            </div>
+                        @endif
                         <div class="flex-1 min-w-0">
                             {{-- <p class="text-sm font-semibold text-white truncate">{{ Auth::user()->name }}</p> --}}
                             <p class="text-xs text-gray-400">
@@ -311,14 +317,28 @@
                                 @endif
                             </p>
                         </div>
-                        <div class="w-10 h-10 rounded-full bg-gradient-to-br from-green-500 to-pink-500 flex items-center justify-center text-white font-bold shadow-lg">
-                            {{ substr(Auth::user()->name, 0, 1) }}
-                        </div>
+                        @if (Auth::user()->profile_photo)
+                            <img src="{{ asset('storage/' . Auth::user()->profile_photo) }}"
+                                alt="{{ Auth::user()->name }}"
+                                class="w-10 h-10 rounded-full object-cover border-2 border-green-500 shadow-lg">
+                        @else
+                            <div class="w-10 h-10 rounded-full bg-gradient-to-br from-green-500 to-pink-500 flex items-center justify-center text-white font-bold shadow-lg">
+                                {{ substr(Auth::user()->name, 0, 1) }}
+                            </div>
+                        @endif
                     </div>
 
                     <!-- Mobile User Avatar -->
-                    <div class="md:hidden w-8 h-8 rounded-full bg-gradient-to-br from-green-500 to-pink-500 flex items-center justify-center text-white text-sm font-bold">
-                        {{ substr(Auth::user()->name, 0, 1) }}
+                    <div>
+                        @if (Auth::user()->profile_photo)
+                            <img src="{{ asset('storage/' . Auth::user()->profile_photo) }}"
+                                alt="{{ Auth::user()->name }}"
+                                class="md:hidden w-8 h-8 rounded-full object-cover border border-green-500">
+                        @else
+                            <div class="md:hidden w-8 h-8 rounded-full bg-gradient-to-br from-green-500 to-pink-500 flex items-center justify-center text-white text-sm font-bold">
+                                {{ substr(Auth::user()->name, 0, 1) }}
+                            </div>
+                        @endif
                     </div>
                 </div>
             </div>

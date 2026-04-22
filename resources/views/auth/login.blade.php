@@ -175,11 +175,6 @@
                                 Ingat saya
                             </label>
                         </div>
-                        <div>
-                            <a href="#" class="text-sm font-medium text-green-600 hover:text-green-500 transition">
-                                Lupa password?
-                            </a>
-                        </div>
                     </div>
 
                     <!-- Submit Button -->

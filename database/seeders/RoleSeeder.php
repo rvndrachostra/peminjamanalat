@@ -71,6 +71,11 @@ class RoleSeeder extends Seeder
             $peminjam->roles()->attach($peminjamRole->id);
         }
 
+        $categories = [
+            ['name' => 'Lapangan Olahraga'],
+            ['name' => 'Peralatan Gym'],
+            ['name' => 'Peralatan Olahraga'],
+        ];
 
         foreach ($categories as $cat) {
             Category::firstOrCreate(['name' => $cat['name']], $cat);

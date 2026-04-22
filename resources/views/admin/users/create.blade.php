@@ -9,7 +9,7 @@
 </div>
 
 <div class="bg-white rounded-lg shadow p-8 max-w-2xl">
-    <form method="POST" action="{{ route('admin.users.store') }}" class="space-y-6">
+    <form method="POST" action="{{ route('admin.users.store') }}" enctype="multipart/form-data" class="space-y-6">
         @csrf
 
         <div>
@@ -38,6 +38,43 @@
                 class="mt-1 w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500"
                 placeholder="08xx-xxxx-xxxx">
             @error('phone')
+                <p class="mt-1 text-sm text-red-500">{{ $message }}</p>
+            @enderror
+        </div>
+
+        <div>
+            <label for="address" class="block text-sm font-medium text-gray-700">Alamat</label>
+            <textarea name="address" id="address" rows="3"
+                class="mt-1 w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500"
+                placeholder="Masukkan alamat lengkap">{{ old('address') }}</textarea>
+            @error('address')
+                <p class="mt-1 text-sm text-red-500">{{ $message }}</p>
+            @enderror
+        </div>
+
+        <div>
+            <label for="profile_photo" class="block text-sm font-medium text-gray-700">Foto Profil</label>
+            <div id="photoPreview" class="mb-4" style="display: none;">
+                <p class="text-sm text-gray-600 mb-2">Preview Foto:</p>
+                <img id="previewImage" src="" alt="Preview"
+                    class="h-32 w-32 rounded-lg object-cover border border-gray-200">
+            </div>
+            <div class="mt-1 flex items-center justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-lg hover:border-gray-400 transition">
+                <div class="space-y-1 text-center">
+                    <svg class="mx-auto h-12 w-12 text-gray-400" stroke="currentColor" fill="none" viewBox="0 0 48 48">
+                        <path d="M28 8H12a4 4 0 00-4 4v20a4 4 0 004 4h24a4 4 0 004-4V16a4 4 0 00-4-4h-8l-4-4z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
+                    <div class="flex text-sm text-gray-600">
+                        <label for="profile_photo" class="relative cursor-pointer bg-white rounded-md font-medium text-blue-600 hover:text-blue-500">
+                            <span>Upload foto</span>
+                            <input id="profile_photo" name="profile_photo" type="file" class="sr-only" accept="image/*">
+                        </label>
+                        <p class="pl-1">atau drag and drop</p>
+                    </div>
+                    <p class="text-xs text-gray-500">PNG, JPG, GIF hingga 2MB</p>
+                </div>
+            </div>
+            @error('profile_photo')
                 <p class="mt-1 text-sm text-red-500">{{ $message }}</p>
             @enderror
         </div>
@@ -97,4 +134,22 @@
         </div>
     </form>
 </div>
+
+<script>
+    document.getElementById('profile_photo').addEventListener('change', function(e) {
+        const file = e.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function(event) {
+                const previewImage = document.getElementById('previewImage');
+                const photoPreview = document.getElementById('photoPreview');
+                previewImage.src = event.target.result;
+                photoPreview.style.display = 'block';
+                // Scroll to preview
+                photoPreview.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            };
+            reader.readAsDataURL(file);
+        }
+    });
+</script>
 @endsection
